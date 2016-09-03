@@ -5,20 +5,21 @@ import java.util.List;
 public class Controller {
 	
 	static User logedOnUser;
+	static int badUserCount;
 	
 	private boolean runAddressBook;
 	private boolean runUserProgram;
 	
 	FromConsol fromConsol = FromConsol.getInstance();
 	DAO dao = DAO.getInstance();
-	Masage msg = Masage.getInstance();
+	Message msg = Message.getInstance();
 	
 	public void start(boolean start) {
 		runAddressBook = start;
+		String input;
+		msg.selectLng();
+		input = fromConsol.getInput(msg.getMessage(".S.I.or.S.U"));
 		while (runAddressBook) {
-			String input;
-			
-			input = fromConsol.getInput("Please write down one of this commands Sign In or Sign Up __ ");
 			
 			switch (input) {
 			
@@ -31,11 +32,12 @@ public class Controller {
 				break;
 				
 			case "Help":
-				msg.startHelp();
+//				startHelp();
 				break;
 				
 			default:
-				System.out.println("Invalid command. Please write < Help > command for see command list __ ");
+				System.out.println("ssss");
+				input = fromConsol.getInput(msg.getMessage(".Invalid.Command"));
 				break;
 			}
 			
@@ -46,13 +48,15 @@ public class Controller {
 	public void userProgram(boolean start) {
 		runUserProgram = start;
 		String input;
+		input = fromConsol.getInput("");
 		while (runUserProgram) {
 			
-			input = fromConsol.getInput("Now you can write down one of this commands < Add Tel. Number > or < Show Tel. Numbers > __ ");
+			input = fromConsol.getInput("");
 			
 			switch (input) {
 			
 			case "Sign Out":
+				msg.lng = "";
 				start(true);
 				break;
 				
@@ -77,11 +81,11 @@ public class Controller {
 				break;
 				
 			case "Help":
-				msg.userProgramHelp();
+//				userProgramHelp();
 				break;
 				
 			default:
-				System.out.println("Invalid command. Please write < Help > command for see command list __ ");
+				input = fromConsol.getInput(msg.getMessage("Invalid.Command"));
 				break;
 			}
 			
@@ -110,6 +114,7 @@ public class Controller {
 	}
 	
 	public void signIn() {
+		
 		
 		
 	}
