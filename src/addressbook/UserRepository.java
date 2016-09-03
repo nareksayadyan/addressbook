@@ -8,7 +8,7 @@ public interface UserRepository {
 	
 	public void deleteUser(int userID);
 	
-	public User getUser(String userName, String password);
+	public User getUser(int userID);
 	
 	public List<User> getUsersList();
 	

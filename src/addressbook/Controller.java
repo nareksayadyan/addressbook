@@ -1,5 +1,6 @@
 package addressbook;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
@@ -19,7 +20,6 @@ public class Controller {
 		msg.selectLng();
 		input = fromConsol.getInput(msg.getMessage(".S.I.or.S.U"));
 		while (runAddressBook) {
-			
 			switch (input) {
 			
 			case "Sign Up":
@@ -37,7 +37,8 @@ public class Controller {
 				break;
 				
 			case "Help":
-				System.out.println(msg.getMessage("Start." + input));
+				System.out.println(msg.getMessage(".Start.Help"));
+				input = fromConsol.getInput(msg.getMessage(".S.I.or.S.U"));
 				break;
 				
 			default:
@@ -54,9 +55,6 @@ public class Controller {
 		String input;
 		input = fromConsol.getInput("");
 		while (runUserProgram) {
-			
-			input = fromConsol.getInput("");
-			
 			switch (input) {
 			
 			case "Sign Out":
@@ -89,7 +87,8 @@ public class Controller {
 				break;
 				
 			case "Help":
-				System.out.println(msg.getMessage("User.Program." + input));
+				System.out.println(msg.getMessage(".User.Program.Help"));
+				input = fromConsol.getInput("");
 				break;
 				
 			default:
@@ -113,7 +112,7 @@ public class Controller {
 			inputedUserName = fromConsol.getInput(msg.getMessage(".Input.UserName"));
 		}
 		String inputedPassword;
-		inputedPassword = encriptPassword(fromConsol.getInput(msg.getMessage(".Input.Password > ")));
+		inputedPassword = encriptPassword(fromConsol.getInput(msg.getMessage(".Input.Password")));
 		
 		User user = new User(inputedUserName, inputedPassword);
 		dao.addUser(user);
@@ -164,6 +163,7 @@ public class Controller {
 			}
 			for (User tmpUser : users) {
 				if (inputedUserName.equals(tmpUser.getUserName()) && inputedPassword.equals(tmpUser.getPassword())) {
+					logedOnUser = tmpUser;
 					login = true;
 				}
 			}
@@ -171,7 +171,6 @@ public class Controller {
 			inputedPassword = encriptPassword(fromConsol.getInput(msg.getMessage(".Input.Password")));
 		}
 		
-		logedOnUser = dao.getUser(inputedUserName, inputedPassword);
 	}
 
 	public void addNumber() {
@@ -182,9 +181,8 @@ public class Controller {
 /**
  * Done!
  */
-	@SuppressWarnings("null")
 	public void showNumbers() {
-		List<PhoneNumber> myNumbers = null;
+		List<PhoneNumber> myNumbers = new ArrayList<>();
 		
 		myNumbers.addAll(dao.getPhoneNumbersList(logedOnUser.getUserID()));
 		
