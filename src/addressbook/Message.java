@@ -27,6 +27,7 @@ public class Message {
 	public String getMessage(String key){
 		InputStream inMessages = null;
 		inMessages = this.getClass().getClassLoader().getResourceAsStream("resource//messages.properties");
+//		inMessages = this.getClass().getClassLoader().getResourceAsStream("resource//" + lng + "_messages.properties");
 		try {
 			messages.load(inMessages);
 		} catch (IOException e) {

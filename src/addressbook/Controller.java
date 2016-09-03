@@ -5,7 +5,6 @@ import java.util.List;
 public class Controller {
 	
 	static User logedOnUser;
-	static int badUserCount;
 	
 	private boolean runAddressBook;
 	private boolean runUserProgram;
@@ -25,18 +24,23 @@ public class Controller {
 			
 			case "Sign Up":
 				signUp();
+				input = fromConsol.getInput(msg.getMessage(".Successfully.S.U"));
 				break;
 				
 			case "Sign In":
 				signIn();
+				userProgram(true);
+				break;
+				
+			case "Exit":
+				System.exit(0);
 				break;
 				
 			case "Help":
-//				startHelp();
+				System.out.println(msg.getMessage("Start." + input));
 				break;
 				
 			default:
-				System.out.println("ssss");
 				input = fromConsol.getInput(msg.getMessage(".Invalid.Command"));
 				break;
 			}
@@ -80,12 +84,16 @@ public class Controller {
 				showFriends();
 				break;
 				
+			case "Exit":
+				System.exit(0);
+				break;
+				
 			case "Help":
-//				userProgramHelp();
+				System.out.println(msg.getMessage("User.Program." + input));
 				break;
 				
 			default:
-				input = fromConsol.getInput(msg.getMessage("Invalid.Command"));
+				input = fromConsol.getInput(msg.getMessage(".Invalid.Command"));
 				break;
 			}
 			
@@ -98,25 +106,72 @@ public class Controller {
  */
 	public void signUp() {
 		String inputedUserName;
-		inputedUserName = fromConsol.getInput("Please provide your username > ");
-		for (User tmpUser : dao.getUsersList()) {
-
-			while (inputedUserName.equals(tmpUser.getUserName())) {
-				inputedUserName = fromConsol.getInput("Please provide your username >");
-			}
-			
-		}
+		inputedUserName = fromConsol.getInput(msg.getMessage(".Input.UserName"));
 		
+		while (checkUserName(inputedUserName)) {
+			System.out.println(msg.getMessage(".UserName.Used"));
+			inputedUserName = fromConsol.getInput(msg.getMessage(".Input.UserName"));
+		}
 		String inputedPassword;
-		inputedPassword = fromConsol.getInput("Please provide your password > ");
+		inputedPassword = encriptPassword(fromConsol.getInput(msg.getMessage(".Input.Password > ")));
+		
 		User user = new User(inputedUserName, inputedPassword);
 		dao.addUser(user);
 	}
+
+/**
+ * Done!
+ */
+	public boolean checkUserName(String userName) {
+		boolean used = false;
+		List<User> users = dao.getUsersList();
+		
+		for (User tempUser : users) {
+			if (userName.equals(tempUser.getUserName())) {
+				return used = true;
+			} 
+		}
+		return used;
+	}
 	
+	public String encriptPassword(String password) {
+		String p = password;
+		
+		
+		
+		
+		return p;
+	}
+
+/**
+ * Done!
+ */
 	public void signIn() {
+		int badUserCount = 1;
+		boolean login = false;
+		List<User> users = dao.getUsersList();
 		
+		String inputedUserName;
+		String inputedPassword;
 		
+		inputedUserName = fromConsol.getInput(msg.getMessage(".Input.UserName"));
+		inputedPassword = encriptPassword(fromConsol.getInput(msg.getMessage(".Input.Password")));
 		
+		while (!login) {
+			badUserCount++;
+			if (badUserCount == 3){
+				System.exit(0);
+			}
+			for (User tmpUser : users) {
+				if (inputedUserName.equals(tmpUser.getUserName()) && inputedPassword.equals(tmpUser.getPassword())) {
+					login = true;
+				}
+			}
+			inputedUserName = fromConsol.getInput(msg.getMessage(".Input.UserName"));
+			inputedPassword = encriptPassword(fromConsol.getInput(msg.getMessage(".Input.Password")));
+		}
+		
+		logedOnUser = dao.getUser(inputedUserName, inputedPassword);
 	}
 
 	public void addNumber() {

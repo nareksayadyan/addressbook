@@ -1,5 +1,6 @@
 package addressbook;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DAO implements UserRepository, PhoneRepository, UserMapRepository {
@@ -79,8 +80,9 @@ public class DAO implements UserRepository, PhoneRepository, UserMapRepository {
 
 	@Override
 	public List<User> getUsersList() {
+		List<User> users = new ArrayList<>();
 		
-		return null;
+		return users;
 	}
 
 	@Override
