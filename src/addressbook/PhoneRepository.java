@@ -10,6 +10,6 @@ public interface PhoneRepository {
 	
 	public List<PhoneNumber> getPhoneNumbersList(int userID);
 	
-	public void  editPhoneNumber(int phoneNumberID);
+	public void  editPhoneNumber(int phoneNumberID, String userID);
 
 }

@@ -14,11 +14,11 @@ public class User {
 		setPassword(password);
 	}
 	
-	private int userID;
+	public int userID;
 	private String userName;
 	private String password;
 	
-	private void setUserID() {
+	public void setUserID() {
 		this.userID = id + 1;
 		id++;
 	}

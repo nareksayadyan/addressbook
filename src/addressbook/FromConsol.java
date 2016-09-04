@@ -6,10 +6,13 @@ import java.io.InputStreamReader;
 
 public class FromConsol {
 	
-	private static FromConsol instance = new FromConsol();
+	private static FromConsol instance = null;
 	private FromConsol(){};
 	
 	public static FromConsol getInstance() {
+		if (instance == null) {
+			instance = new FromConsol();
+		}
 		return instance;
 	}
 	

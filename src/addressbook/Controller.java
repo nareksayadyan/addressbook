@@ -59,6 +59,7 @@ public class Controller {
 			
 			case "Sign Out":
 				msg.lng = "";
+				logedOnUser = null;
 				start(true);
 				break;
 				
@@ -124,11 +125,12 @@ public class Controller {
 	public boolean checkUserName(String userName) {
 		boolean used = false;
 		List<User> users = dao.getUsersList();
-		
-		for (User tempUser : users) {
-			if (userName.equals(tempUser.getUserName())) {
-				return used = true;
-			} 
+		if (!users.equals(null)){
+			for (User tempUser : users) {
+				if (userName.equals(tempUser.getUserName())) {
+					return used = true;
+				} 
+			}
 		}
 		return used;
 	}
@@ -167,6 +169,7 @@ public class Controller {
 					login = true;
 				}
 			}
+			System.out.println(msg.getMessage(".Invalid.U.P"));
 			inputedUserName = fromConsol.getInput(msg.getMessage(".Input.UserName"));
 			inputedPassword = encriptPassword(fromConsol.getInput(msg.getMessage(".Input.Password")));
 		}

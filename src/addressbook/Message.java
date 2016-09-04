@@ -6,11 +6,14 @@ import java.util.Properties;
 
 public class Message {
 	
-	private static Message instance = new Message();
+	private static Message instance = null;
 	
 	private Message(){};
 	
 	public static Message getInstance() {
+		if (instance == null) {
+			instance = new Message();
+		}
 		return instance;
 	}
 	
